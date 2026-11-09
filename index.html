@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jahnavi Bathala Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a drafting table. Vellum paper, blueprint-blue sections, orange only for marks and focus. Dimension lines and +LVL datums carry the architecture. */
+:root {
+  --paper: #eef0ee;
+  --paper-2: #e1e5e3;
+  --ink: #10161f;
+  --ink-2: #4a5360;
+  --blue: #0b2a52;
+  --blue-2: #17407a;
+  --chalk: #bcd9ff;
+  --orange: #ff5b1f;
+  --orange-ink: #b83409;
+  --line: rgba(16, 22, 31, .2);
+  --display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --gutter: clamp(16px, 4vw, 56px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html.lock, html.lock body { overflow: hidden; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 800; font-stretch: 112%; line-height: 1.02; letter-spacing: -0.01em; }
+p { margin: 0; }
+.mono, .eyebrow, .cap, dt { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.eyebrow { color: var(--orange-ink); display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ""; width: 22px; height: 1px; background: currentColor; }
+.on-blue .eyebrow { color: var(--orange); }
+.wrap { padding-inline: var(--gutter); max-width: 1440px; margin-inline: auto; }
+
+/* top bar */
+.bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px var(--gutter); background: rgba(238, 240, 238, .88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.mark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-stretch: 125%; letter-spacing: .04em; font-size: 15px; }
+.mark svg { width: 18px; height: 22px; }
+.bar nav { display: flex; gap: clamp(12px, 3vw, 30px); }
+.bar nav a { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; padding: 6px 0; border-bottom: 1px solid transparent; }
+.bar nav a:hover { border-color: var(--orange); }
+
+/* hero */
+.hero { padding: 96px var(--gutter) 48px; max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 64px); align-items: end; background-image: radial-gradient(rgba(16,22,31,.14) 1px, transparent 1.2px); background-size: 24px 24px; background-position: -12px 84px; }
+.hero > * { min-width: 0; }
+.hero h1 { font-size: clamp(2.3rem, 4.6vw, 5rem); font-weight: 850; font-stretch: 112%; text-transform: uppercase; line-height: .92; margin: 18px 0 22px; letter-spacing: -.02em; overflow-wrap: anywhere; }
+@media (max-width: 819px) {
+  .hero { grid-template-columns: minmax(0, 1fr); padding-top: 84px; gap: 28px; }
+  .hero h1 { font-size: clamp(2.4rem, 13vw, 4.6rem); }
+}
+.hero .lede { font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 2.1rem); line-height: 1.15; max-width: 22ch; }
+.hero .lede em { color: var(--orange-ink); }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; transition: background .2s, color .2s; }
+.btn:hover { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn.light { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.btn.outline-light { background: transparent; color: var(--paper); border-color: var(--chalk); }
+.btn.outline-light:hover { background: var(--chalk); color: var(--blue); border-color: var(--chalk); }
+
+.lens { position: relative; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--blue); cursor: crosshair; touch-action: pan-y; user-select: none; -webkit-user-select: none; --x: 50%; --y: 50%; --r: 120px; }
+.lens img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.lens .render { clip-path: circle(var(--r) at var(--x) var(--y)); }
+.lens .ring { position: absolute; left: var(--x); top: var(--y); width: calc(var(--r) * 2); height: calc(var(--r) * 2); transform: translate(-50%, -50%); border: 1px solid var(--orange); border-radius: 50%; pointer-events: none; }
+.lens .ring::before, .lens .ring::after { content: ""; position: absolute; background: var(--orange); }
+.lens .ring::before { left: 50%; top: -10px; width: 1px; height: 20px; }
+.lens .ring::after { top: 50%; left: -10px; height: 1px; width: 20px; }
+.lens .coord { position: absolute; left: 12px; bottom: 12px; padding: 4px 8px; background: rgba(11, 42, 82, .86); color: var(--chalk); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; }
+.lens .reveal { position: absolute; right: 12px; bottom: 12px; padding: 7px 11px; background: var(--paper); border: 0; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.lens .reveal:hover { background: var(--orange); }
+.lens-wrap { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.dimline { position: relative; display: flex; justify-content: center; border-top: 1px solid var(--ink); margin-top: 6px; }
+.dimline::before, .dimline::after { content: ""; position: absolute; top: -6px; width: 1px; height: 11px; background: var(--ink); }
+.dimline::before { left: 0; } .dimline::after { right: 0; }
+.dimline span { margin-top: 4px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--ink-2); }
+
+/* index */
+.work { padding: clamp(56px, 9vw, 120px) 0 clamp(40px, 6vw, 80px); }
+.sec-head { display: grid; gap: 16px; margin-bottom: 28px; max-width: 900px; }
+.sec-head h2 { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 18px; align-items: center; }
+.chip { padding: 8px 14px; border: 1px solid var(--ink); background: transparent; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.chip:hover { border-color: var(--orange); }
+.filters .count { margin-left: auto; font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+.idx { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.idx li { border-bottom: 1px solid var(--line); }
+.row { display: grid; grid-template-columns: 56px minmax(0, 1fr) 96px; gap: 14px; align-items: center; padding: 14px 10px; text-decoration: none; transition: background .2s, color .2s; }
+.row:hover, .row:focus-visible { background: var(--blue); color: #fff; outline-offset: -2px; }
+.row .n { font-family: var(--mono); font-size: 13px; color: var(--orange-ink); }
+.row:hover .n, .row:focus-visible .n { color: var(--orange); }
+.row .t strong { display: block; font-size: clamp(1.3rem, 3.6vw, 2.5rem); font-weight: 800; font-stretch: 112%; line-height: 1.05; }
+.row .t small { display: block; margin-top: 4px; font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; opacity: .72; }
+.row .m { display: none; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; opacity: .8; }
+.row .th { aspect-ratio: 4 / 3; overflow: hidden; background: var(--paper-2); }
+.row .th img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.row:hover .th img, .row:focus-visible .th img { transform: scale(1.12); }
+@media (min-width: 820px) {
+  .row { grid-template-columns: 64px minmax(0, 1.2fr) minmax(0, 1fr) 200px; padding: 18px 14px; }
+  .row .m { display: block; }
+  .row .th { aspect-ratio: 16 / 10; transition: transform .3s; }
+  .row:hover .th { transform: scale(1.05); }
+}
+
+/* thesis feature */
+.thesis { background: var(--blue); color: #fff; background-image: linear-gradient(rgba(188,217,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(188,217,255,.09) 1px, transparent 1px); background-size: 32px 32px; padding: clamp(56px, 9vw, 120px) 0; }
+.thesis h2 { font-size: clamp(2.4rem, 7.4vw, 6.4rem); text-transform: uppercase; font-stretch: 125%; font-weight: 850; line-height: .92; margin: 14px 0; }
+.thesis .sub { font-family: var(--serif); font-size: clamp(1.3rem, 2.8vw, 2.2rem); color: var(--chalk); }
+.aerial { margin: 36px 0 0; position: relative; border: 1px solid var(--chalk); padding: 8px; background: rgba(11, 42, 82, .6); }
+.aerial button { display: block; width: 100%; padding: 0; border: 0; background: none; }
+.aerial img { width: 100%; height: auto; }
+.aerial figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 8px 2px 0; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--chalk); }
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin: 36px 0; border-top: 1px solid var(--chalk); }
+.stats div { padding: 18px 12px 18px 0; border-bottom: 1px solid rgba(188,217,255,.3); }
+.stats b { display: block; font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 800; font-stretch: 112%; line-height: 1; font-variant-numeric: tabular-nums; }
+.stats span { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--chalk); }
+@media (min-width: 820px) { .stats { grid-template-columns: repeat(4, 1fr); } .stats div { border-bottom: 0; } }
+.th-copy { display: grid; gap: 16px; max-width: 70ch; color: #dbe7f7; }
+.th-copy p:first-child { font-size: 1.15rem; color: #fff; }
+.thesis h3 { font-size: clamp(1.4rem, 3vw, 2.1rem); margin: 56px 0 18px; }
+.chapters { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 820px) { .chapters { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.chapters button { width: 100%; text-align: left; padding: 0; border: 1px solid rgba(188,217,255,.5); background: rgba(255,255,255,.04); color: #fff; display: grid; transition: border-color .2s, background .2s; }
+.chapters button:hover { border-color: var(--orange); background: rgba(255,91,31,.1); }
+.chapters .ct { aspect-ratio: 3 / 2; overflow: hidden; background: #fff; }
+.chapters .ct img { width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform .5s; }
+.chapters button:hover .ct img { transform: scale(1.06); }
+.chapters .cb { padding: 10px 12px 12px; display: grid; gap: 2px; }
+.chapters .cb small { font-family: var(--mono); font-size: 11px; color: var(--orange); letter-spacing: .06em; }
+.chapters .cb strong { font-size: 1.05rem; font-weight: 700; font-stretch: 108%; }
+.chapters .cb span { font-family: var(--mono); font-size: 11px; color: var(--chalk); text-transform: uppercase; letter-spacing: .05em; }
+
+.prog { border: 1px solid var(--chalk); padding: clamp(14px, 3vw, 28px); background: rgba(11, 42, 82, .7); }
+.prog-bar { display: flex; height: 64px; gap: 2px; margin-bottom: 18px; }
+.prog-bar button { border: 0; padding: 0; min-width: 3px; transition: transform .2s, filter .2s; background: var(--c); }
+.prog-bar button[aria-pressed="true"] { outline: 2px solid #fff; outline-offset: 2px; z-index: 1; }
+.prog-bar button:hover { filter: brightness(1.15); }
+.prog-info { display: grid; gap: 4px; margin-bottom: 14px; min-height: 5.6em; }
+.prog-info strong { font-size: clamp(1.4rem, 3.4vw, 2.2rem); font-weight: 800; font-stretch: 112%; }
+.prog-info span { font-family: var(--mono); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--chalk); }
+.prog-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.prog-table th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--chalk); padding: 6px 8px 6px 0; border-bottom: 1px solid var(--chalk); }
+.prog-table td { padding: 8px 8px 8px 0; border-bottom: 1px solid rgba(188,217,255,.2); font-variant-numeric: tabular-nums; vertical-align: middle; }
+.prog-table tr { cursor: pointer; }
+.prog-table tr[aria-selected="true"] td { color: #fff; font-weight: 700; }
+.prog-table tr:hover td { color: #fff; }
+.prog-table td:nth-child(1) { display: flex; align-items: center; gap: 8px; }
+.prog-table .sw { width: 10px; height: 10px; background: var(--c); flex: none; }
+.prog-table td.num, .prog-table th.num { text-align: right; padding-right: 0; }
+.prog-table .hide-s { display: none; }
+@media (min-width: 640px) { .prog-table .hide-s { display: table-cell; } }
+.prog-note { margin-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--chalk); }
+
+/* about */
+.about { padding: clamp(56px, 9vw, 120px) 0; }
+.about-grid { display: grid; gap: clamp(28px, 5vw, 72px); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .about-grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); } }
+.sheet-frame { margin: 0; border: 1px solid var(--ink); background: #fff; padding: 10px 10px 0; }
+.sheet-frame img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 30% 30%; }
+.sheet-frame figcaption { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 10px 2px 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; border-top: 1px solid var(--ink); margin-top: 10px; }
+.bio { display: grid; gap: 20px; align-content: start; }
+.bio h2 { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
+.bio .big { font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.2; max-width: 34ch; }
+.cols { display: grid; gap: 28px; margin-top: 8px; }
+@media (min-width: 640px) { .cols { grid-template-columns: 1fr 1fr; } }
+.cols h3, .skills h3, .xp h3 { font-size: 1rem; font-family: var(--mono); font-weight: 500; font-stretch: 100%; letter-spacing: .08em; text-transform: uppercase; color: var(--orange-ink); margin-bottom: 10px; }
+.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.plain li { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.plain small { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--ink-2); text-transform: uppercase; }
+.skills { display: grid; gap: 32px; margin-top: clamp(40px, 6vw, 72px); }
+@media (min-width: 820px) { .skills { grid-template-columns: 1fr 1fr; gap: 56px; } }
+.bars { display: grid; gap: 12px; }
+.bar-row { display: grid; grid-template-columns: 130px 1fr 34px; gap: 12px; align-items: center; font-size: 14px; }
+@media (max-width: 420px) { .bar-row { grid-template-columns: 104px 1fr 30px; font-size: 13px; } }
+.track { position: relative; height: 12px; background: repeating-linear-gradient(90deg, var(--paper-2) 0 calc(10% - 1px), var(--line) calc(10% - 1px) 10%); border: 1px solid var(--ink); }
+.fill { position: absolute; inset: 0 auto 0 0; width: calc(var(--v) * 1%); background: var(--blue); transition: background .2s; }
+.bar-row:hover .fill { background: var(--orange); }
+.bar-row b { font-family: var(--mono); font-weight: 500; font-size: 12px; text-align: right; }
+.xp { margin-top: clamp(40px, 6vw, 72px); }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 28px; position: relative; display: grid; gap: 0; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 1px; background: var(--ink); }
+.timeline li { position: relative; display: grid; gap: 2px; padding: 12px 0 14px; border-bottom: 1px solid var(--line); }
+.timeline li::before { content: ""; position: absolute; left: -28px; top: 18px; width: 15px; height: 15px; border: 1px solid var(--ink); border-radius: 50%; background: var(--paper); }
+.timeline li::after { content: ""; position: absolute; left: -23px; top: 23px; width: 5px; height: 5px; border-radius: 50%; background: var(--ink); }
+.timeline li:hover::after { background: var(--orange); }
+.timeline .yr { font-family: var(--mono); font-size: 12px; color: var(--orange-ink); letter-spacing: .06em; }
+.timeline strong { font-weight: 700; font-stretch: 108%; }
+.timeline span.d { color: var(--ink-2); font-size: 15px; }
+@media (min-width: 820px) { .timeline li { grid-template-columns: 90px 1fr; gap: 18px; } .timeline li > .yr { grid-row: span 2; } }
+
+/* contact */
+.contact { background: var(--ink); color: var(--paper); padding: clamp(56px, 9vw, 120px) 0 40px; }
+.contact h2 { font-size: clamp(2.6rem, 9vw, 8rem); text-transform: uppercase; font-stretch: 125%; font-weight: 850; line-height: .9; }
+.contact h2 em { font-family: var(--serif); font-style: italic; text-transform: none; font-weight: 400; color: var(--orange); font-stretch: 100%; }
+.contact .lines { display: grid; gap: 14px; margin: 36px 0; max-width: 640px; }
+.contact .lines a.big { font-size: clamp(1.2rem, 4.2vw, 2.2rem); font-weight: 700; font-stretch: 110%; text-decoration: none; border-bottom: 1px solid var(--orange); width: fit-content; max-width: 100%; overflow-wrap: anywhere; }
+.contact .lines a.big:hover { color: var(--orange); }
+.contact .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.contact .foot { margin-top: 56px; padding-top: 16px; border-top: 1px solid rgba(238,240,238,.3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #aab4c2; }
+#copy-msg { font-family: var(--mono); font-size: 12px; color: var(--chalk); min-height: 1.4em; }
+
+/* datum */
+.datum { position: fixed; right: 10px; bottom: 16px; z-index: 20; display: flex; align-items: flex-end; gap: 6px; pointer-events: none; mix-blend-mode: normal; }
+.datum .rail { position: relative; width: 14px; height: 120px; border-left: 1px solid var(--ink); background: repeating-linear-gradient(to bottom, var(--ink) 0 1px, transparent 1px 12px) left / 6px 100% no-repeat; }
+.datum .tri { position: absolute; left: -1px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 9px solid var(--orange); transform: translateY(5px); }
+.datum .lv { background: var(--paper); border: 1px solid var(--ink); padding: 2px 6px; font-family: var(--mono); font-size: 11px; letter-spacing: .05em; font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) { .datum { display: none; } }
+html.lock .datum { display: none; }
+
+/* case study overlay */
+.cs { position: fixed; inset: 0; z-index: 50; background: var(--paper); overflow-y: auto; overscroll-behavior: contain; }
+.cs[hidden] { display: none; }
+.cs-bar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px var(--gutter); background: rgba(238,240,238,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.cs-bar button { background: none; border: 1px solid var(--ink); padding: 8px 12px; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.cs-bar button:hover { background: var(--ink); color: var(--paper); }
+.cs-bar .pager { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; }
+.cs-body { padding: clamp(24px, 5vw, 64px) var(--gutter) 80px; max-width: 1440px; margin: 0 auto; }
+.cs-head { display: grid; gap: 14px; margin-bottom: 28px; }
+.cs-head h2 { font-size: clamp(2.4rem, 8vw, 6.6rem); text-transform: uppercase; font-stretch: 125%; font-weight: 850; line-height: .92; }
+.cs-head .place { font-family: var(--serif); font-size: clamp(1.3rem, 2.6vw, 2rem); color: var(--ink-2); }
+.cs-hero { margin: 0 0 clamp(28px, 5vw, 56px); background: var(--paper-2); border: 1px solid var(--ink); }
+.cs-hero button { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.cs-hero img { width: 100%; max-height: 74vh; object-fit: var(--fit, cover); background: #fff; }
+.cs-grid { display: grid; gap: clamp(28px, 5vw, 64px); margin-bottom: clamp(32px, 5vw, 64px); }
+@media (min-width: 900px) { .cs-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); } }
+.cs-story { display: grid; gap: 16px; max-width: 64ch; }
+.cs-story p:first-child { font-size: 1.2rem; }
+dl.facts { margin: 0; display: grid; border-top: 1px solid var(--ink); align-content: start; }
+.facts > div { display: grid; grid-template-columns: 120px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.facts dt { color: var(--ink-2); padding-top: 2px; }
+.facts dd { margin: 0; font-weight: 600; font-stretch: 105%; font-variant-numeric: tabular-nums; }
+.cs h3.sec { font-size: clamp(1.3rem, 2.6vw, 1.9rem); margin: 44px 0 6px; }
+.cs p.sec-note { color: var(--ink-2); max-width: 64ch; margin-bottom: 16px; }
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 12px; margin: 36px 0 8px; border-bottom: 1px solid var(--ink); scrollbar-width: thin; }
+.tabs button { flex: none; border: 1px solid var(--ink); background: transparent; padding: 9px 14px; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.tabs button[aria-selected="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+.tabs button:hover { border-color: var(--orange); }
+.sheets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (min-width: 760px) { .sheets { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
+.sheets.one { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 760px) { .sheets.one { grid-template-columns: minmax(0, 1fr); max-width: 980px; } .sheets.two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.sheets.photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 760px) { .sheets.photos { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.sheet { display: grid; gap: 8px; padding: 0; border: 0; background: none; text-align: left; cursor: zoom-in; align-content: start; }
+.sheet .im { position: relative; overflow: hidden; border: 1px solid var(--ink); background: #fff; aspect-ratio: var(--ar, 1.414); }
+.sheet .im img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.sheet:hover .im img { transform: scale(1.04); }
+.sheet .im::after { content: "+"; position: absolute; right: 8px; top: 8px; width: 26px; height: 26px; display: grid; place-items: center; background: var(--paper); border: 1px solid var(--ink); font-family: var(--mono); font-size: 16px; line-height: 1; }
+.sheet:hover .im::after { background: var(--orange); }
+.sheet .cap { color: var(--ink-2); text-transform: none; font-size: 12px; letter-spacing: .02em; line-height: 1.4; }
+.sheet .cap b { color: var(--ink); font-weight: 500; margin-right: 6px; }
+.cs-next { margin-top: 64px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--ink); padding-top: 18px; }
+.cs-next button { background: none; border: 0; padding: 0; text-align: left; font-size: clamp(1.4rem, 4vw, 2.6rem); font-weight: 800; font-stretch: 112%; line-height: 1.05; }
+.cs-next button small { display: block; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; color: var(--orange-ink); margin-bottom: 4px; }
+.cs-next button:hover strong { text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 6px; }
+.cs-next .r { text-align: right; margin-left: auto; }
+
+/* lightbox */
+.lb { position: fixed; inset: 0; z-index: 80; background: rgba(8, 14, 24, .96); color: #fff; display: grid; grid-template-rows: auto 1fr auto; }
+.lb[hidden] { display: none; }
+.lb-top, .lb-bot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px var(--gutter); font-family: var(--mono); font-size: 12px; letter-spacing: .05em; }
+.lb-bot { justify-content: space-between; align-items: flex-start; }
+.lb-bot .lb-cap { max-width: 70ch; text-transform: none; letter-spacing: .02em; font-size: 13px; line-height: 1.45; color: #dbe7f7; }
+.lb button { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.35); color: #fff; width: 40px; height: 40px; font-family: var(--mono); font-size: 18px; line-height: 1; display: inline-grid; place-items: center; }
+.lb button:hover { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+.lb-tools { display: flex; gap: 6px; }
+.lb-stage { position: relative; overflow: hidden; touch-action: none; cursor: grab; min-height: 0; }
+.lb-stage.drag { cursor: grabbing; }
+.lb-stage img { position: absolute; left: 50%; top: 50%; max-width: none; transform-origin: center; will-change: transform; user-select: none; -webkit-user-drag: none; }
+.lb-nav { position: absolute; top: 50%; z-index: 2; transform: translateY(-50%); }
+.lb-nav.prev { left: 10px; } .lb-nav.next { right: 10px; }
+.lb-hint { color: #8fa3bd; text-transform: uppercase; }
+@media (max-width: 640px) { .lb-hint { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar" id="top">
+  <a class="mark" href="#top" aria-label="Jahnavi Bathala, back to top">
+    <svg viewBox="0 0 18 22" aria-hidden="true"><path d="M9 1 L16 20 L9 15.5 L2 20 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="9" cy="9.5" r="1.4" fill="#ff5b1f"/></svg>
+    <span>J. BATHALA</span>
+  </a>
+  <nav aria-label="Sections">
+    <a href="#work">Work</a>
+    <a href="#warangal">Thesis</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="h1">
+    <div class="hero-text">
+      <p class="eyebrow">Architectural portfolio · B.Arch 2019–2024</p>
+      <h1 id="h1">Jahnavi<br>Bathala</h1>
+      <p class="lede">Efficient buildings, restored histories, and <em>jaali</em> screens that open onto quiet courtyards.</p>
+      <div class="cta">
+        <a class="btn" href="#work">Browse eight projects</a>
+        <a class="btn ghost" href="#warangal">Read the thesis</a>
+      </div>
+    </div>
+    <div class="lens-wrap">
+      <figure class="lens" id="lens" tabindex="0" aria-label="Interactive drawing. Move across the line drawing to reveal the rendered Urban Art Center.">
+        <img src="img/x/artcenter-bp.jpg" alt="" width="1600" height="1063">
+        <img class="render" src="img/x/artcenter.jpg" alt="Render of the Urban Art Center, a timber-louvred gallery building on a terraced site" width="1600" height="1063">
+        <div class="ring" aria-hidden="true"></div>
+        <span class="coord" id="coord" aria-hidden="true">X 12.00 m · Y 08.00 m</span>
+        <button class="reveal" id="reveal" type="button" aria-pressed="false">Show full render</button>
+      </figure>
+      <div class="dimline"><span>URBAN ART CENTER · 24.00 m · HYDERABAD</span></div>
+    </div>
+  </section>
+
+  <section class="work" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Selected work</p>
+        <h2 id="work-h">Eight projects, from a half-acre apartment block to a 32,374 sqm craft haat.</h2>
+      </div>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-f="buildings" aria-pressed="false">Buildings</button>
+        <button class="chip" type="button" data-f="urban" aria-pressed="false">Urban</button>
+        <button class="chip" type="button" data-f="technical" aria-pressed="false">Technical</button>
+        <button class="chip" type="button" data-f="product" aria-pressed="false">Product and art</button>
+        <span class="count" id="count" aria-live="polite"></span>
+      </div>
+      <ol class="idx" id="idx"></ol>
+    </div>
+  </section>
+
+  <section class="thesis on-blue" id="warangal" aria-labelledby="th-h">
+    <div class="wrap">
+      <p class="eyebrow">Design thesis · AAR 522 · April 2024</p>
+      <h2 id="th-h">Warangal Urban Haat</h2>
+      <p class="sub">Artisan Bridge: connecting crafts and communities</p>
+
+      <figure class="aerial">
+        <button type="button" id="aerial-btn" aria-label="Open the aerial render full screen"><img src="img/x/thesis-aerial.jpg" alt="Aerial render of the Warangal Urban Haat: concentric terracotta-roofed stall rings around a central open-air theatre, behind a brick entrance gate" width="2000" height="1022"></button>
+        <figcaption><span>Aerial view of the haat</span><span>Tap to enlarge</span></figcaption>
+      </figure>
+
+      <div class="stats" role="list">
+        <div role="listitem"><b>32,374</b><span>sqm total area</span></div>
+        <div role="listitem"><b>192</b><span>bazaar stalls</span></div>
+        <div role="listitem"><b>6</b><span>reference haats studied</span></div>
+        <div role="listitem"><b>25</b><span>drawing sheets</span></div>
+      </div>
+
+      <div class="th-copy">
+        <p>A community development centre for handicrafts and handlooms. It gives local artisans a place to train, exhibit and sell, and gives visitors a reason to stay, so that skills, markets and heritage meet on one site.</p>
+        <p>The plan grows from a radial grid: curved rows of stalls ring a central open-air theatre, with a happy street, food court, workshops, exhibition space and accommodation set around them. It focuses on Pochampally handlooms, Kondapalli handicrafts and puppetry.</p>
+      </div>
+
+      <h3>Seven chapters, 25 sheets</h3>
+      <ol class="chapters" id="chapters"></ol>
+
+      <h3>Where the area goes</h3>
+      <div class="prog">
+        <div class="prog-bar" id="prog-bar" role="group" aria-label="Programme by area. Choose a space to read its figures."></div>
+        <div class="prog-info" id="prog-info" aria-live="polite"></div>
+        <table class="prog-table">
+          <thead><tr><th>Space</th><th class="num hide-s">Users</th><th class="num">Area, sqm</th><th class="num">Share</th></tr></thead>
+          <tbody id="prog-body"></tbody>
+        </table>
+        <p class="prog-note">Programme 11,414 sqm of 32,374 sqm total area. Shares are of the programme.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about" aria-labelledby="ab-h">
+    <div class="wrap">
+      <div class="about-grid">
+        <figure class="sheet-frame">
+          <img src="img/x/portrait.jpg" alt="Jahnavi Bathala in a red bucket hat, smiling, with a floodlit stadium behind her" width="638" height="722">
+          <figcaption><span>Jahnavi Bathala</span><span>B.Arch · GITAM</span></figcaption>
+        </figure>
+        <div class="bio">
+          <p class="eyebrow">About</p>
+          <h2 id="ab-h">Architecture that remembers where it comes from.</h2>
+          <p class="big">I design efficient buildings, restore historic structures, and work intricate jaali screens and tranquil courtyards into my plans.</p>
+          <p>I work well in teams and value the different perspectives each person brings, and I pick up new concepts quickly. What drives me is a deep appreciation for the history and cultural significance woven into the fabric of architecture. Along the way I have built 3D models and renders with full sets of plans, sections and elevations, and detailed physical models to carry the design across.</p>
+          <div class="cols">
+            <div>
+              <h3>Interests</h3>
+              <ul class="plain">
+                <li>Designing efficient buildings</li>
+                <li>Historic building restoration</li>
+                <li>Jaali works and courtyards</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Education</h3>
+              <ul class="plain">
+                <li>Bachelor of Architecture<small>2019–2024 · GITAM School of Architecture</small></li>
+                <li>Intermediate<small>2017–2019 · Sri Chaitanya Junior College</small></li>
+                <li>Schooling<small>Vikas, The Concept School</small></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills">
+        <div>
+          <h3>Digital skills</h3>
+          <div class="bars" id="bars-digital"></div>
+        </div>
+        <div>
+          <h3>Creative skills</h3>
+          <div class="bars" id="bars-creative"></div>
+        </div>
+      </div>
+
+      <div class="xp">
+        <h3>Experience</h3>
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="ct-h">
+    <div class="wrap">
+      <p class="eyebrow" style="color: var(--orange)">Contact</p>
+      <h2 id="ct-h" style="margin-top: 14px">Let's build <em>something</em></h2>
+      <div class="lines">
+        <a class="big" href="mailto:jahnavibathala675@gmail.com">jahnavibathala675@gmail.com</a>
+        <a class="big" href="tel:9949657200">9949657200</a>
+      </div>
+      <div class="btns">
+        <button class="btn light" type="button" id="copy-email">Copy email</button>
+        <a class="btn outline-light" href="#work">Back to the work</a>
+      </div>
+      <p id="copy-msg" role="status"></p>
+      <div class="foot"><span>Jahnavi Bathala · Architect</span><span>Hyderabad · Telangana</span></div>
+    </div>
+  </section>
+</main>
+
+<div class="datum" aria-hidden="true">
+  <div class="lv" id="lv">+00.00 LVL</div>
+  <div class="rail"><span class="tri" id="tri"></span></div>
+</div>
+
+<div class="cs" id="cs" role="dialog" aria-modal="true" aria-label="Project" hidden>
+  <div class="cs-bar">
+    <button type="button" id="cs-close">← All projects</button>
+    <div class="pager">
+      <span id="cs-count">01 / 08</span>
+      <button type="button" id="cs-prev" aria-label="Previous project">←</button>
+      <button type="button" id="cs-next" aria-label="Next project">→</button>
+    </div>
+  </div>
+  <div class="cs-body" id="cs-body"></div>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <div class="lb-top">
+    <span id="lb-count">1 / 1</span>
+    <span class="lb-hint">Scroll or pinch to zoom · drag to move</span>
+    <div class="lb-tools">
+      <button type="button" id="lb-out" aria-label="Zoom out">−</button>
+      <button type="button" id="lb-in" aria-label="Zoom in">+</button>
+      <button type="button" id="lb-x" aria-label="Close viewer">✕</button>
+    </div>
+  </div>
+  <div class="lb-stage" id="lb-stage">
+    <button class="lb-nav prev" type="button" id="lb-prev" aria-label="Previous image">←</button>
+    <img id="lb-img" alt="" draggable="false">
+    <button class="lb-nav next" type="button" id="lb-next" aria-label="Next image">→</button>
+  </div>
+  <div class="lb-bot"><div class="lb-cap" id="lb-cap"></div></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, el) { return (el || document).querySelector(s); };
+  var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- data ---------- */
+  function S(p, cap) { return { thumb: 'img/t/' + p + '.jpg', full: 'img/s/' + p + '.jpg', cap: cap }; }
+  function I(src, cap, ar) { return { thumb: src, full: src, cap: cap, ar: ar }; }
+
+  var THESIS_CH = [
+    { k: 'brief', t: 'Brief', cover: '23', d: 'The synopsis sets the aim, objectives, scope and limits: a centre that lifts artisans through training, markets and community, focused on Pochampally handlooms, Kondapalli handicrafts and puppetry.',
+      s: [S('23', 'Synopsis: objectives, scope, limitation and methodology')] },
+    { k: 'research', t: 'Research', cover: '29', d: 'Literature study of India’s handicraft and handloom traditions, then six reference haats and craft centres compared side by side.',
+      s: [S('24', 'Literature study: handlooms and handicrafts across India'), S('25', 'Literature study: happy street, parking, food court, bazaar and toilet standards'), S('26', 'Desktop study: Uttarayan Art Foundation and the Living, Learning Design Centre'), S('27', 'Desktop and case study: Dilli Haat INA and Dilli Haat Pitampura'), S('28', 'Case study: Ahmedabad Haat and Shilparamam'), S('29', 'Comparative analysis of the six references')] },
+    { k: 'site', t: 'Site', cover: '30', d: 'Warangal’s climate, topography, access and land use, then the site itself with its existing condition and a SWOT reading.',
+      s: [S('30', 'Site analysis: Warangal, climate, topography, access and land use'), S('31', 'Site analysis: existing site, services and SWOT')] },
+    { k: 'concept', t: 'Concept', cover: '34', d: 'Heritage, ecology and happy streets give the concept its three roots. User groups and spaces needed lead to an axial grid, then a radial grid.',
+      s: [S('32', 'Design concept and approach: heritage, ecology, happy streets, materials'), S('33', 'Inferences drawn from the Dilli Haat and Ahmedabad Haat studies'), S('34', 'Design approach: user groups, spaces and axial grid planning'), S('35', 'Design approach: area statement and zoning'), S('36', 'Design approach: radial grid planning, zoning and circulation')] },
+    { k: 'design', t: 'Design', cover: '37', d: 'Site plan, floor plans, elevations and sections. The curved stall rows read clearly in the long site sections.',
+      s: [S('37', 'Site plan with stall, bike, car and bus counts'), S('38', 'Plan and area statement'), S('39', 'Floor plans: accommodation, information centre, administration office, food court, stalls'), S('40', 'Floor plans: workshop, exhibition and recreation'), S('41', 'Elevations: north, south, east and west'), S('42', 'Sections AA, BB and CC'), S('43', 'Stall sections and site sections')] },
+    { k: 'views', t: 'Views', cover: '44', d: 'Rendered views from the gate, the stall streets, the roofs and the open-air theatre.',
+      s: [S('44', 'Views: aerial, entrance gate and plan from above'), S('45', 'Views: shaded stall walks, courtyard and aerial'), S('46', 'Views: plaza, theatre and aerial')] },
+    { k: 'detail', t: 'Working drawings', cover: '47', d: 'Electrical, flooring and plumbing layouts for the administration office, with washroom details.',
+      s: [S('47', 'Working and services drawings: administration office and washrooms')] }
+  ];
+
+  var PROJECTS = [
+    { id: 'apartment', n: '01', title: 'Apartment', cat: 'buildings', type: 'Residential · community housing', place: 'Alkapur, Manikonda, Hyderabad',
+      thumb: 'img/x/th-apartment.jpg', hero: 'img/x/apartment.jpg', fit: 'contain', meta: 'Stilt + 3 floors · 2,085.6 sqm',
+      story: [
+        'A residential complex designed as a small community. The wider scheme serves all income groups (HIG, MIG and LIG); this block is the low-income housing, and the open space between the buildings becomes the shared place where every age group can gather and rest.',
+        'One side of the site faces the lake and the other faces a tot-lot and courtyard. The flats are symmetrical, parking is one-way, and a 2.5 m pedestrian path and a 6 m gateway organise how people arrive.',
+        'The case study was Amanora Future Towers in Pune by MVRDV: nine towers of 30 floors and 1,068 flats. Three lessons carried over: courtyards and scoops that invite interaction, play areas set between blocks, and stepped forms that shade the neighbouring block while giving kitchens natural ventilation.'
+      ],
+      facts: [['Site', '2,085.6 sqm · 0.5 acre'], ['Landmarks', 'Neknampur lake, MK park'], ['Setbacks', '5 m front · 4 m on three sides'], ['Parking', '20 cars · 44 bikes'], ['Recreation', '20 × 7 m · 140 sqm'], ['Programme', 'Play area, community hall']],
+      sections: [
+        { t: 'Site planning and case study', n: 'Site data, setbacks, the Amanora study and what it taught.', s: [S('05', 'Site planning, site data and the Amanora Future Towers case study')], cls: 'one' },
+        { t: 'Plans, sections and details', n: 'Stilt-level plan, three floor plans, four sections and wall details up to the +14.0 parapet.', s: [S('06', 'Floor plans, sections A–A′ to D′ and construction details')], cls: 'one' },
+        { t: 'Elevations and views', n: 'Four elevations with levels, and 3D views of the courtyard, play area and a typical flat.', s: [S('07', 'Elevations 1 to 4 and model views')], cls: 'one' }
+      ] },
+
+    { id: 'art-center', n: '02', title: 'Urban Art Center', cat: 'buildings', type: 'Cultural · art gallery', place: 'Opposite KBR Park, Hyderabad',
+      thumb: 'img/x/th-artcenter.jpg', hero: 'img/x/artcenter.jpg', fit: 'cover', meta: 'Art gallery · 8,000 sqm',
+      story: [
+        'A cultural hub where several forms of art and craft share one building: a temporary exhibition space, workshops, a cafeteria, shopping and administration.',
+        'The structure is light and transparent, with aluminium fins over glass, so the timber louvres can read as a skin. Circulation sits at the centre and every other space wraps around it. The first-floor exhibition hall is open and reached two ways, and the two-level cafeteria opens through a triple-height void, with atriums and openings that keep the interior daylit all day.',
+        'The study was the Modern Wing of the Art Institute of Chicago, by Renzo Piano: a transparent glass-and-metal facade that nods to the skyline, with limestone walls and an energy-first approach. On site, the contours were used for a terraced base, a green roof, an atrium, an external ramp and views toward the lake.'
+      ],
+      facts: [['Site', '8,000 sqm'], ['Typology', 'Art gallery'], ['Programme', 'Exhibition, workshop, cafeteria, conference hall, shop'], ['Case study', 'Modern Wing, Art Institute of Chicago · 25,000 sqm'], ['Strategy', 'Contours, green roof, atrium, external ramp']],
+      sections: [
+        { t: 'Brief, site and case study', n: 'Objectives, site data, inferences from Chicago and the site planning moves.', s: [S('09', 'Brief, site, case study and site planning')], cls: 'one' },
+        { t: 'Plans and sections', n: 'Site plan, ground to fifth floor, and sections.', s: [S('10', 'Site, ground to fifth floor plans and sections')], cls: 'one' },
+        { t: 'Renders and models', n: 'Roof grid, timber facade renders, interior views and the physical model on its contour base.', s: [S('11', 'Roof plan, facade renders and interior views'), S('12', 'Physical model studies')], cls: 'two' }
+      ],
+      extras: { t: 'Physical model', n: 'Built as a layered contour model, so the terraces and the building mass could be tested by hand.', cls: 'photos', s: [I('img/x/model-1.jpg', 'Model: building on the contour base'), I('img/x/model-2.jpg', 'Model: top view of the site'), I('img/x/model-3.jpg', 'Model: terraced base and massing'), I('img/x/model-4.jpg', 'Model: facade skin'), I('img/x/model-5.jpg', 'Model: louvred volume on the contours')] } },
+
+    { id: 'pakhal-lake', n: '03', title: 'Pakhal Lake', cat: 'urban', type: 'Urban design · public realm', place: 'Pakhal Lake and Wildlife Sanctuary, Warangal',
+      thumb: 'img/t/14.jpg', hero: 'img/s/14.jpg', fit: 'contain', meta: '1 km pathway · 11 m wide',
+      story: [
+        'The lake sits inside a wildlife sanctuary, yet the internal pathway has no separate lanes for people and vehicles and is poorly laid out. Information boards explain the sanctuary but say nothing about the lake, and nothing warns visitors that they are among wildlife.',
+        'The proposal lays out a 1 km internal pathway, 11 m wide, designed for everyone regardless of age, height or ability. It holds a 2.5 m walking track, a 2.4 m cycle track and a 5.5 m safari road for two cars, with curbs separating each and trees shading the seating.',
+        'View decks connect the path to the water. A fish-shaped deck depicts the species in the lake, and the larger decks step down in two levels of 0.4 m with seating and a cafe. Signage every 20 m and information boards every 12.5 m, with QR codes, guide visitors along the way.'
+      ],
+      facts: [['Pathway', '1 km × 11 m'], ['Walking track', '2.5 m'], ['Cycle track', '2.4 m'], ['Safari road', '5.5 m · two cars'], ['View decks', '6 existing + 3 proposed'], ['Wayfinding', 'Signs every 20 m · boards every 12.5 m']],
+      sections: [
+        { t: 'Existing path and proposal', n: 'Photographs and mapping of the existing walk, and the proposed internal pathway.', s: [S('14', 'Existing pathway, issues and the proposed internal pathway')], cls: 'one' },
+        { t: 'Pathway, viewpoints and signage', n: 'Sections through the path, the fish-shaped view deck and the wayfinding system.', s: [S('15', 'Pathway sections, view decks and signage boards')], cls: 'one' }
+      ] },
+
+    { id: 'working-drawings', n: '04', title: 'Working Drawings', cat: 'technical', type: 'Detailing · interiors', place: 'Studio coursework',
+      thumb: 'img/t/16.jpg', hero: 'img/s/16.jpg', fit: 'contain', meta: 'Kitchen and washroom set',
+      story: [
+        'A full working-drawing set for a kitchen and washrooms, drawn so a contractor could build from it.',
+        'The kitchen section calls out every layer from slab to ceiling: ceramic floor tiles and skirting, granite counter, sink and stove, glazed ceramic tile dado, plywood storage drawers with matte laminate shutters, chimney, water purifier, window and PVC false ceiling.',
+        'The washroom sheets add fixture details for the bath tub, commode and wash basin, with plumbing and electrical layouts, elevations and joinery details.'
+      ],
+      facts: [['Set', 'Kitchen section · washroom sheets'], ['Includes', 'Sections, elevations, plumbing, electrical'], ['Details', 'Bath tub, commode, wash basin, joinery']],
+      sections: [
+        { t: 'Kitchen section', n: 'Dimensioned and labelled, from slab to false ceiling.', s: [S('16', 'Kitchen section with material callouts')], cls: 'one' },
+        { t: 'Drawing sheets', n: 'Layouts, sections and fixture details.', s: [S('17', 'Working drawing sheet 1'), S('18', 'Working drawing sheet 2'), S('19', 'Working drawing sheet 3')], cls: '' }
+      ] },
+
+    { id: 'construction-sketches', n: '05', title: 'Construction and Sketches', cat: 'technical', type: 'Building construction · history', place: 'Studio coursework',
+      thumb: 'img/t/21.jpg', hero: 'img/s/21.jpg', fit: 'contain', meta: 'Formwork · Eastern architecture',
+      story: [
+        'Hand drawings from two courses. Building construction asked for clear drawings of how things are put together, such as the formwork that holds a concrete wall: sheets, wales, ties, studs, braces, stakes and a base.',
+        'History of Eastern architecture was studied by sketching, from mastaba tombs to arches, domes and ornament, pencil studies that train the eye for proportion and detail.'
+      ],
+      facts: [['Medium', 'Pencil on paper'], ['Courses', 'Building construction · History of Eastern architecture']],
+      sections: [
+        { t: 'Wall formwork', n: 'Labelled construction sketch.', s: [S('20', 'Formwork for a concrete wall')], cls: 'one' },
+        { t: 'Eastern architecture sketches', n: 'Pencil studies.', s: [S('21', 'History of Eastern architecture sketches')], cls: 'one' }
+      ] },
+
+    { id: 'warangal-urban-haat', n: '06', title: 'Warangal Urban Haat', cat: 'urban', type: 'Design thesis · cultural and commercial', place: 'Warangal, Telangana · AAR 522 · April 2024',
+      thumb: 'img/x/th-aerial.jpg', hero: 'img/x/thesis-aerial.jpg', fit: 'cover', meta: 'Thesis · 32,374 sqm',
+      story: [
+        'Artisan Bridge: connecting crafts and communities. A community development centre for handicrafts and handlooms that fosters sustainable development by empowering local artisans.',
+        'It trains, exhibits and markets: skill-development workshops, cultural exchange, artisan studios, tourism, sustainable materials and collaborative art projects, with a focus on Pochampally handlooms, Kondapalli handicrafts and puppetry.',
+        'Six reference haats shaped the plan. From them came a radial grid in which curved rows of stalls ring a central open-air theatre, with the happy street, bazaar, food court, workshops and accommodation arranged around it.'
+      ],
+      facts: [['Course', 'AAR 522 Design Thesis · Year V, Semester X'], ['Total area', '32,374 sqm'], ['Bazaar', '192 stalls · 2,696 sqm'], ['References', 'Dilli Haat INA and Pitampura · Ahmedabad Haat · Shilparamam · Uttarayan · LLDC'], ['Submitted', '26 April 2024']],
+      chapters: true },
+
+    { id: 'lounge-chair', n: '07', title: 'Lounge Chair', cat: 'product', type: 'Product design · furniture', place: 'Studio coursework',
+      thumb: 'img/x/th-chair.jpg', hero: 'img/x/chair.jpg', fit: 'cover', meta: 'Three functions · one object',
+      story: [
+        'Relaxation is a necessity for a busy adult, not a luxury. The lounge chair is meant to sit between the two: a plush, comfortable seat that adds to a room without taking centre stage.',
+        'It does three jobs. When open it is a lounge chair with a 60 degree inclination and protruding stitched cushions for the head and body. The side overhangs detach to become a coffee table or a laptop table, and the storage racks under the chair hold books and papers, sliding back in when the chair is not in use.',
+        'Plywood moulded into shape keeps cost down, a veneer finish gives richness, cruelty-free faux leather covers the cushions, and a hydraulic piston adjusts the height for users of different sizes.'
+      ],
+      facts: [['Functions', 'Lounge chair · coffee table · book storage'], ['Inclination', '60 degrees'], ['Materials', 'Plywood, wooden panels, leather sheet, metal stand'], ['Mechanism', 'Hydraulic pneumatic piston for height']],
+      sections: [
+        { t: 'Concept and materials', n: 'Why a lounge chair, how its parts work and what it is made of.', s: [S('49', 'Concept, parts and multiple uses'), S('50', 'Materials and the setting')], cls: 'two' }
+      ],
+      extras: { t: 'Sketch and in use', n: 'From the first line to a seated render.', cls: 'two', s: [I('img/x/chair-sketch.jpg', 'Initial sketch'), I('img/x/chair-use.jpg', 'Rendered in use, with storage')] } },
+
+    { id: 'art-photography', n: '08', title: 'Artwork and Photography', cat: 'product', type: 'Sketchbook · camera roll', place: 'Hand drawings and travel photographs',
+      thumb: 'img/x/th-photo.jpg', hero: 'img/x/ph-basilica.jpg', fit: 'contain', meta: 'Paint · pencil · photographs',
+      story: [
+        'Drawing and photography train the same instincts as architecture: how light falls on a facade, where a line should stop, what a composition leaves out.',
+        'The paintings and pencil studies are hers. So are the photographs, which collect heritage buildings, a carved jaali ceiling, stone temples, a lake view deck and the cities and hills around them.'
+      ],
+      facts: [['Mediums', 'Acrylic, pencil, camera'], ['Subjects', 'Heritage buildings, jaali, landscapes']],
+      gallery: [
+        { t: 'Artwork', n: 'Paint and pencil.', cls: 'photos', s: [I('img/x/art-batman.jpg', 'Splatter painting', 1.39), I('img/x/art-guitar.jpg', 'Guitar, mixed media', 1.38), I('img/x/art-stag.jpg', 'Stag silhouette, acrylic', 1.45), I('img/x/art-chief.jpg', 'Pencil study of a headdress', 1.47), I('img/x/art-eye.jpg', 'Pencil study', 1.43), I('img/x/art-captain.jpg', 'Pencil figure study', 1.39)] },
+        { t: 'Photography', n: 'Heritage, landscape and light.', cls: 'photos', s: [I('img/x/ph-basilica.jpg', 'Carved laterite facade against the sky', 1.33), I('img/x/ph-jaali.jpg', 'Jaali ceiling pattern', 1.28), I('img/x/ph-stone-temple.jpg', 'Stone temple, stepped tiers', 1.18), I('img/x/ph-viewdeck.jpg', 'Timber walkway to a lake view deck', 1.33), I('img/x/ph-church.jpg', 'White church on a hill', 0.82), I('img/x/ph-house.jpg', 'Heritage house under a cloudy sky', 1.33), I('img/x/ph-city.jpg', 'View over the city', 0.61), I('img/x/ph-falls.jpg', 'Waterfall and rocky hills', 1.26)] }
+      ] }
+  ];
+
+  var PROGRAMME = [
+    ['Bazaar', '350', 2696], ['Accommodation', '30–40', 1200], ['Happy street', '120–130', 1200], ['Ravan Dahan and Bathukamma', '150–160', 1600], ['Recreational area', '100–120', 1000],
+    ['Parking', '', 912], ['Food court', '130–150', 621], ['OAT, the open-air theatre', '100–120', 615], ['Administration office', '30–45', 430], ['Information centre', '40–50', 370], ['Exhibition space', '100–120', 350], ['Workshop', '100–120', 350], ['Public toilets', '20–25', 70]
+  ].sort(function (a, b) { return b[2] - a[2]; });
+  var PROG_TOTAL = PROGRAMME.reduce(function (s, r) { return s + r[2]; }, 0);
+
+  var DIGITAL = [['AutoCAD', 90], ['Photoshop', 90], ['SketchUp', 85], ['Enscape', 85], ['Microsoft Office', 75], ['Revit', 70]];
+  var CREATIVE = [['Rendering and presentation', 80], ['Concept visualisation', 80], ['Photography', 80], ['Sketching', 75], ['Model making', 75]];
+  var XP = [
+    ['2020', 'Model-making case study', 'Shilparamam, Arts and Crafts Village'],
+    ['2022', 'Advanced services', 'Daspalla Hotel, high-rise building'],
+    ['2022', 'IGBC competition', 'Community space in a slum'],
+    ['2023', 'Urban design interventions', 'Warangal, tourism enhancements'],
+    ['2023', 'Internship', 'Genesis Planners Pvt Ltd'],
+    ['2024', 'Thesis', 'Warangal Urban Haat'],
+    ['2025', 'Junior architect', 'Teamone One India Pvt Ltd (2 months) · Liquid Space Studio (1 year)']
+  ];
+
+  function fmt(n) { return n.toLocaleString('en-US'); }
+
+  /* ---------- project index ---------- */
+  var idx = $('#idx');
+  idx.innerHTML = PROJECTS.map(function (p) {
+    return '<li data-cat="' + p.cat + '"><a class="row" href="#' + p.id + '">' +
+      '<span class="n">' + p.n + '</span>' +
+      '<span class="t"><strong>' + p.title + '</strong><small>' + p.type + '</small></span>' +
+      '<span class="m">' + p.place + '<br>' + p.meta + '</span>' +
+      '<span class="th"><img loading="lazy" decoding="async" src="' + p.thumb + '" alt=""></span></a></li>';
+  }).join('');
+  var countEl = $('#count');
+  function applyFilter(f) {
+    var shown = 0;
+    $$('li', idx).forEach(function (li) {
+      var ok = f === 'all' || li.dataset.cat === f;
+      li.hidden = !ok; if (ok) shown++;
+    });
+    countEl.textContent = 'Showing ' + shown + ' of ' + PROJECTS.length;
+  }
+  $$('.chip').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('.chip').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      applyFilter(b.dataset.f);
+    });
+  });
+  applyFilter('all');
+
+  /* ---------- thesis chapters + programme ---------- */
+  $('#chapters').innerHTML = THESIS_CH.map(function (c, i) {
+    return '<li><button type="button" data-ch="' + c.k + '"><span class="ct"><img loading="lazy" decoding="async" src="img/t/' + c.cover + '.jpg" alt=""></span>' +
+      '<span class="cb"><small>CH ' + String(i + 1).padStart(2, '0') + '</small><strong>' + c.t + '</strong><span>' + c.s.length + (c.s.length === 1 ? ' sheet' : ' sheets') + '</span></span></button></li>';
+  }).join('');
+  $$('#chapters button').forEach(function (b) {
+    b.addEventListener('click', function () { openProject('warangal-urban-haat', b.dataset.ch); });
+  });
+
+  function segColor(i) {
+    var orange = ['#ff5b1f', '#ff7a3d', '#ff9a63', '#ffb78a'];
+    var chalk = ['#e4f0ff', '#bcd9ff', '#93bdf0', '#6c9ad6', '#4f7fbd', '#3a68a6', '#2c5590', '#244a80', '#1d3f70'];
+    return i < 4 ? orange[i] : chalk[Math.min(i - 4, chalk.length - 1)];
+  }
+  var pbar = $('#prog-bar'), pinfo = $('#prog-info'), pbody = $('#prog-body');
+  pbar.innerHTML = PROGRAMME.map(function (r, i) {
+    return '<button type="button" data-i="' + i + '" style="flex:' + r[2] + ' 1 0; --c:' + segColor(i) + '" aria-pressed="false" aria-label="' + r[0] + ', ' + fmt(r[2]) + ' sqm"></button>';
+  }).join('');
+  pbody.innerHTML = PROGRAMME.map(function (r, i) {
+    return '<tr data-i="' + i + '" tabindex="0" aria-selected="false" style="--c:' + segColor(i) + '"><td><span class="sw"></span>' + r[0] + '</td><td class="num hide-s">' + (r[1] || '—') + '</td><td class="num">' + fmt(r[2]) + '</td><td class="num">' + (r[2] / PROG_TOTAL * 100).toFixed(1) + '%</td></tr>';
+  }).join('');
+  function selectProg(i) {
+    var r = PROGRAMME[i];
+    $$('#prog-bar button').forEach(function (b, k) { b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+    $$('#prog-body tr').forEach(function (b, k) { b.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    pinfo.innerHTML = '<span>Space ' + String(i + 1).padStart(2, '0') + ' of ' + PROGRAMME.length + ', by area</span><strong>' + r[0] + '</strong><span>' + fmt(r[2]) + ' sqm · ' + (r[2] / PROG_TOTAL * 100).toFixed(1) + '% of the programme' + (r[1] ? ' · ' + r[1] + ' users' : '') + '</span>';
+  }
+  $$('#prog-bar button').forEach(function (b) {
+    var i = +b.dataset.i;
+    b.addEventListener('click', function () { selectProg(i); });
+    b.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') selectProg(i); });
+  });
+  $$('#prog-body tr').forEach(function (tr) {
+    var i = +tr.dataset.i;
+    tr.addEventListener('click', function () { selectProg(i); });
+    tr.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectProg(i); } });
+  });
+  selectProg(0);
+
+  /* ---------- about ---------- */
+  function bars(el, data) {
+    el.innerHTML = data.map(function (d) {
+      return '<div class="bar-row"><span>' + d[0] + '</span><div class="track" role="img" aria-label="' + d[0] + ' ' + d[1] + ' out of 100"><div class="fill" style="--v:' + d[1] + '"></div></div><b>' + d[1] + '</b></div>';
+    }).join('');
+  }
+  bars($('#bars-digital'), DIGITAL);
+  bars($('#bars-creative'), CREATIVE);
+  $('#timeline').innerHTML = XP.map(function (x) {
+    return '<li><span class="yr">' + x[0] + '</span><strong>' + x[1] + '</strong><span class="d">' + x[2] + '</span></li>';
+  }).join('');
+
+  /* ---------- contact ---------- */
+  $('#copy-email').addEventListener('click', function () {
+    var msg = $('#copy-msg');
+    var done = function () { msg.textContent = 'Email address copied.'; };
+    var fail = function () { msg.textContent = 'Copy is blocked here. The address is jahnavibathala675@gmail.com.'; };
+    try { navigator.clipboard.writeText('jahnavibathala675@gmail.com').then(done, fail); } catch (e) { fail(); }
+  });
+
+  /* ---------- scroll datum ---------- */
+  var lv = $('#lv'), tri = $('#tri');
+  function datum() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    lv.textContent = '+' + (p * 14.05).toFixed(2).padStart(5, '0') + ' LVL';
+    tri.style.top = (p * 110) + 'px';
+  }
+  window.addEventListener('scroll', datum, { passive: true });
+  window.addEventListener('resize', datum);
+  datum();
+
+  /* ---------- hero lens ---------- */
+  (function () {
+    var lens = $('#lens'), coord = $('#coord'), btn = $('#reveal');
+    var W = 0, H = 0, base = 120;
+    var cx = 0, cy = 0, tx = 0, ty = 0, cr = 0, tr = 0;
+    var auto = true, full = false, visible = true, raf = 0;
+    function measure() {
+      var b = lens.getBoundingClientRect(); W = b.width; H = b.height; base = Math.min(W, H) * 0.27;
+      if (!cr) { cx = tx = W * 0.5; cy = ty = H * 0.5; cr = tr = base; }
+      tr = full ? Math.hypot(W, H) : base;
+    }
+    function paint() {
+      lens.style.setProperty('--x', cx.toFixed(1) + 'px');
+      lens.style.setProperty('--y', cy.toFixed(1) + 'px');
+      lens.style.setProperty('--r', cr.toFixed(1) + 'px');
+      var X = (cx / W * 24), Y = ((1 - cy / H) * 16);
+      coord.textContent = 'X ' + X.toFixed(2).padStart(5, '0') + ' m · Y ' + Y.toFixed(2).padStart(5, '0') + ' m';
+    }
+    function loop(t) {
+      if (auto && !reduce) { tx = W * (0.5 + 0.3 * Math.sin(t * 0.0004)); ty = H * (0.5 + 0.22 * Math.sin(t * 0.00031 + 1)); }
+      var k = reduce ? 1 : 0.14;
+      cx += (tx - cx) * k; cy += (ty - cy) * k; cr += (tr - cr) * (reduce ? 1 : 0.1);
+      paint();
+      if (visible) raf = requestAnimationFrame(loop);
+    }
+    function move(e) {
+      auto = false;
+      var b = lens.getBoundingClientRect();
+      tx = e.clientX - b.left; ty = e.clientY - b.top;
+    }
+    lens.addEventListener('pointermove', move);
+    lens.addEventListener('pointerdown', move);
+    lens.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { auto = true; } });
+    lens.addEventListener('keydown', function (e) {
+      var step = W * 0.05, m = false;
+      if (e.key === 'ArrowLeft') { tx -= step; m = true; } else if (e.key === 'ArrowRight') { tx += step; m = true; }
+      else if (e.key === 'ArrowUp') { ty -= step; m = true; } else if (e.key === 'ArrowDown') { ty += step; m = true; }
+      if (m) { auto = false; e.preventDefault(); }
+    });
+    btn.addEventListener('click', function () {
+      full = !full; btn.setAttribute('aria-pressed', full); btn.textContent = full ? 'Show drawing' : 'Show full render'; measure();
+    });
+    window.addEventListener('resize', measure);
+    measure(); paint();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) {
+        var v = en[0].isIntersecting;
+        if (v && !visible) { visible = true; raf = requestAnimationFrame(loop); } else if (!v) { visible = false; cancelAnimationFrame(raf); }
+      }).observe(lens);
+    }
+    raf = requestAnimationFrame(loop);
+  })();
+
+  /* ---------- lightbox ---------- */
+  var lb = $('#lb'), stage = $('#lb-stage'), img = $('#lb-img');
+  var L = { items: [], i: 0, s: 1, x: 0, y: 0, w: 0, h: 0, opener: null };
+  var ptrs = {};
+  var pinch0 = null;
+  function cw() { return stage.clientWidth; } function ch() { return stage.clientHeight; }
+  function clampPan() {
+    var mx = Math.max(0, (L.w * L.s - cw()) / 2), my = Math.max(0, (L.h * L.s - ch()) / 2);
+    L.x = Math.max(-mx, Math.min(mx, L.x)); L.y = Math.max(-my, Math.min(my, L.y));
+  }
+  function apply() {
+    clampPan();
+    img.style.transform = 'translate(-50%,-50%) translate(' + L.x + 'px,' + L.y + 'px) scale(' + L.s + ')';
+  }
+  function fit() {
+    var nw = img.naturalWidth || 1600, nh = img.naturalHeight || 1131;
+    var pad = 24, r = Math.min((cw() - pad) / nw, (ch() - pad) / nh);
+    L.w = nw * r; L.h = nh * r;
+    img.style.width = L.w + 'px'; img.style.height = L.h + 'px';
+    apply();
+  }
+  function zoomAt(f, px, py) {
+    var ns = Math.max(1, Math.min(8, L.s * f));
+    var k = ns / L.s;
+    L.x = px - (px - L.x) * k; L.y = py - (py - L.y) * k; L.s = ns; apply();
+  }
+  function show(i) {
+    L.i = (i + L.items.length) % L.items.length;
+    var it = L.items[L.i];
+    L.s = 1; L.x = 0; L.y = 0;
+    img.alt = it.cap || '';
+    img.onload = function () { fit(); };
+    img.src = it.thumb;
+    if (img.complete && img.naturalWidth) fit();
+    $('#lb-cap').textContent = it.cap || '';
+    $('#lb-count').textContent = (L.i + 1) + ' / ' + L.items.length;
+    var multi = L.items.length > 1;
+    $('#lb-prev').style.display = multi ? '' : 'none'; $('#lb-next').style.display = multi ? '' : 'none';
+    if (it.full !== it.thumb) {
+      var f = new Image(); var mine = L.i;
+      f.onload = function () { if (L.i === mine && !lb.hidden) { img.onload = function () { fit(); }; img.src = it.full; } };
+      f.src = it.full;
+    }
+  }
+  function openLb(items, i) {
+    L.items = items; L.opener = document.activeElement;
+    lb.hidden = false; show(i); $('#lb-x').focus();
+  }
+  function closeLb() { lb.hidden = true; img.removeAttribute('src'); if (L.opener && L.opener.focus) L.opener.focus(); }
+  $('#lb-x').addEventListener('click', closeLb);
+  $('#lb-prev').addEventListener('click', function (e) { e.stopPropagation(); show(L.i - 1); });
+  $('#lb-next').addEventListener('click', function (e) { e.stopPropagation(); show(L.i + 1); });
+  $('#lb-in').addEventListener('click', function () { zoomAt(1.5, 0, 0); });
+  $('#lb-out').addEventListener('click', function () { zoomAt(1 / 1.5, 0, 0); });
+  stage.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    var b = stage.getBoundingClientRect();
+    zoomAt(Math.exp(-e.deltaY * 0.002), e.clientX - b.left - b.width / 2, e.clientY - b.top - b.height / 2);
+  }, { passive: false });
+  stage.addEventListener('dblclick', function (e) {
+    var b = stage.getBoundingClientRect();
+    if (L.s > 1.05) { L.s = 1; L.x = 0; L.y = 0; apply(); } else { zoomAt(2.6, e.clientX - b.left - b.width / 2, e.clientY - b.top - b.height / 2); }
+  });
+  var lastTap = 0, down = null;
+  stage.addEventListener('pointerdown', function (e) {
+    if (e.target.closest('.lb-nav')) return;
+    stage.setPointerCapture(e.pointerId);
+    ptrs[e.pointerId] = { x: e.clientX, y: e.clientY };
+    var ids = Object.keys(ptrs);
+    if (ids.length === 2) { var a = ptrs[ids[0]], b = ptrs[ids[1]]; pinch0 = { d: Math.hypot(a.x - b.x, a.y - b.y), s: L.s }; }
+    else { down = { x: e.clientX, y: e.clientY, t: Date.now(), moved: false }; stage.classList.add('drag'); }
+  });
+  stage.addEventListener('pointermove', function (e) {
+    var p = ptrs[e.pointerId]; if (!p) return;
+    var ids = Object.keys(ptrs);
+    if (ids.length === 2 && pinch0) {
+      p.x = e.clientX; p.y = e.clientY;
+      var a = ptrs[ids[0]], b = ptrs[ids[1]], d = Math.hypot(a.x - b.x, a.y - b.y);
+      var r = stage.getBoundingClientRect();
+      var mx = (a.x + b.x) / 2 - r.left - r.width / 2, my = (a.y + b.y) / 2 - r.top - r.height / 2;
+      zoomAt((pinch0.s * d / pinch0.d) / L.s, mx, my);
+    } else {
+      L.x += e.clientX - p.x; L.y += e.clientY - p.y; p.x = e.clientX; p.y = e.clientY; apply();
+      if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) > 6) down.moved = true;
+    }
+  });
+  function endPtr(e) {
+    var p = ptrs[e.pointerId]; if (!p) return;
+    delete ptrs[e.pointerId]; pinch0 = null; stage.classList.remove('drag');
+    if (down && Object.keys(ptrs).length === 0) {
+      var dx = e.clientX - down.x, dy = e.clientY - down.y;
+      if (L.s <= 1.05 && Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5 && L.items.length > 1) { show(L.i + (dx < 0 ? 1 : -1)); }
+      else if (!down.moved && Date.now() - lastTap < 300) { var b = stage.getBoundingClientRect(); if (L.s > 1.05) { L.s = 1; L.x = 0; L.y = 0; apply(); } else { zoomAt(2.6, e.clientX - b.left - b.width / 2, e.clientY - b.top - b.height / 2); } lastTap = 0; }
+      else if (!down.moved) { lastTap = Date.now(); }
+      down = null;
+    }
+  }
+  stage.addEventListener('pointerup', endPtr);
+  stage.addEventListener('pointercancel', endPtr);
+  window.addEventListener('resize', function () { if (!lb.hidden) fit(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.hidden) {
+      if (e.key === 'Escape') { closeLb(); e.stopPropagation(); }
+      else if (e.key === 'ArrowRight') show(L.i + 1);
+      else if (e.key === 'ArrowLeft') show(L.i - 1);
+      else if (e.key === '+' || e.key === '=') zoomAt(1.4, 0, 0);
+      else if (e.key === '-') zoomAt(1 / 1.4, 0, 0);
+      else if (e.key === '0') { L.s = 1; L.x = 0; L.y = 0; apply(); }
+      return;
+    }
+    if (!cs.hidden) {
+      if (e.key === 'Escape') closeProject();
+      else if (e.key === 'ArrowRight' && !e.target.closest('.tabs')) stepProject(1);
+      else if (e.key === 'ArrowLeft' && !e.target.closest('.tabs')) stepProject(-1);
+    }
+  });
+
+  /* ---------- case study overlay ---------- */
+  var cs = $('#cs'), body = $('#cs-body');
+  var current = null, savedY = 0, currentCh = null;
+  function sheetBtn(it, k, label) {
+    var ar = it.ar ? ' style="--ar:' + it.ar + '"' : '';
+    return '<button type="button" class="sheet" data-k="' + k + '"><span class="im"' + ar + '><img loading="lazy" decoding="async" src="' + it.thumb + '" alt=""></span><span class="cap"><b>' + label + '</b>' + (it.cap || '') + '</span></button>';
+  }
+  function group(g, startLabel) {
+    return '<h3 class="sec">' + g.t + '</h3>' + (g.n ? '<p class="sec-note">' + g.n + '</p>' : '') +
+      '<div class="sheets ' + (g.cls || '') + '" data-group>' + g.s.map(function (it, k) { return sheetBtn(it, k, String(k + 1).padStart(2, '0')); }).join('') + '</div>';
+  }
+  function bindSheets(scope, groups) {
+    $$('[data-group]', scope).forEach(function (el, gi) {
+      $$('.sheet', el).forEach(function (b) {
+        b.addEventListener('click', function () { openLb(groups[gi], +b.dataset.k); });
+      });
+    });
+  }
+  function renderProject(p, ch) {
+    var i = PROJECTS.indexOf(p);
+    var next = PROJECTS[(i + 1) % PROJECTS.length], prev = PROJECTS[(i - 1 + PROJECTS.length) % PROJECTS.length];
+    var html = '<header class="cs-head"><p class="eyebrow">' + p.n + ' · ' + p.type + '</p><h2>' + p.title + '</h2><p class="place">' + p.place + '</p></header>' +
+      '<figure class="cs-hero" style="--fit:' + p.fit + '"><button type="button" id="cs-hero-btn" aria-label="Open the main image full screen"><img src="' + p.hero + '" alt="' + p.title + ', main image"></button></figure>' +
+      '<div class="cs-grid"><div class="cs-story">' + p.story.map(function (t) { return '<p>' + t + '</p>'; }).join('') + '</div>' +
+      '<dl class="facts">' + p.facts.map(function (f) { return '<div><dt>' + f[0] + '</dt><dd>' + f[1] + '</dd></div>'; }).join('') + '</dl></div>';
+    var groups = [];
+    if (p.chapters) {
+      html += '<div class="tabs" role="tablist" aria-label="Thesis chapters">' + THESIS_CH.map(function (c, n) {
+        return '<button type="button" role="tab" data-ch="' + c.k + '" aria-selected="' + (c.k === ch ? 'true' : 'false') + '">' + String(n + 1).padStart(2, '0') + ' ' + c.t + '</button>';
+      }).join('') + '</div><div id="ch-panel"></div>';
+    } else {
+      (p.sections || []).forEach(function (g) { html += group(g); groups.push(g.s); });
+      if (p.extras) { html += group(p.extras); groups.push(p.extras.s); }
+      (p.gallery || []).forEach(function (g) { html += group(g); groups.push(g.s); });
+    }
+    html += '<nav class="cs-next" aria-label="More projects"><button type="button" data-go="' + prev.id + '"><small>← Previous</small><strong>' + prev.title + '</strong></button><button type="button" class="r" data-go="' + next.id + '"><small>Next →</small><strong>' + next.title + '</strong></button></nav>';
+    body.innerHTML = html;
+    $('#cs-count').textContent = p.n + ' / ' + String(PROJECTS.length).padStart(2, '0');
+    $('#cs-hero-btn').addEventListener('click', function () { openLb([{ thumb: p.hero, full: p.hero, cap: p.title }], 0); });
+    $$('[data-go]', body).forEach(function (b) { b.addEventListener('click', function () { openProject(b.dataset.go); }); });
+    if (p.chapters) {
+      $$('.tabs button', body).forEach(function (b) { b.addEventListener('click', function () { renderChapter(b.dataset.ch); }); });
+      renderChapter(ch || THESIS_CH[0].k);
+    } else { bindSheets(body, groups); }
+  }
+  function renderChapter(k) {
+    currentCh = k;
+    var c = THESIS_CH.filter(function (x) { return x.k === k; })[0];
+    $$('.tabs button', body).forEach(function (b) { b.setAttribute('aria-selected', b.dataset.ch === k ? 'true' : 'false'); });
+    var cls = c.s.length === 1 ? 'one' : '';
+    var panel = $('#ch-panel');
+    panel.innerHTML = '<h3 class="sec">' + c.t + '</h3><p class="sec-note">' + c.d + '</p><div class="sheets ' + cls + '" data-group>' +
+      c.s.map(function (it, n) { return sheetBtn(it, n, String(n + 1).padStart(2, '0')); }).join('') + '</div>';
+    bindSheets(panel, [c.s]);
+  }
+  function openProject(id, ch) {
+    var p = typeof id === 'string' ? PROJECTS.filter(function (x) { return x.id === id; })[0] : id;
+    if (!p) return;
+    if (cs.hidden) { savedY = window.scrollY; }
+    current = p;
+    renderProject(p, ch);
+    cs.hidden = false; cs.scrollTop = 0;
+    document.documentElement.classList.add('lock');
+    if (location.hash !== '#' + p.id) { location.hash = p.id; }
+    if (ch) {
+      var tab = $('.tabs', body); if (tab) { cs.scrollTop = Math.max(0, tab.offsetTop - 70); }
+    }
+    $('#cs-close').focus({ preventScroll: true });
+  }
+  function closeProject() {
+    if (cs.hidden) return;
+    cs.hidden = true; current = null;
+    document.documentElement.classList.remove('lock');
+    if (location.hash && PROJECTS.some(function (x) { return '#' + x.id === location.hash; })) { location.hash = ''; }
+    var y = savedY;
+    requestAnimationFrame(function () { window.scrollTo(0, y); });
+  }
+  function stepProject(d) {
+    if (!current) return;
+    var i = PROJECTS.indexOf(current);
+    openProject(PROJECTS[(i + d + PROJECTS.length) % PROJECTS.length]);
+  }
+  $('#cs-close').addEventListener('click', closeProject);
+  $('#cs-prev').addEventListener('click', function () { stepProject(-1); });
+  $('#cs-next').addEventListener('click', function () { stepProject(1); });
+  $('#aerial-btn').addEventListener('click', function () {
+    openLb([{ thumb: 'img/x/thesis-aerial.jpg', full: 'img/x/thesis-aerial.jpg', cap: 'Warangal Urban Haat, aerial view' }], 0);
+  });
+  function route() {
+    var id = location.hash.slice(1);
+    var p = PROJECTS.filter(function (x) { return x.id === id; })[0];
+    if (p) { if (!current || current.id !== p.id) openProject(p); }
+    else if (!cs.hidden) { closeProject(); }
+  }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>
+</body>
+</html>
